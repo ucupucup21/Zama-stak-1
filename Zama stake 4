@@ -1,0 +1,29 @@
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+module.exports = {
+  solidity: "0.8.19",
+  networks: {
+    hardhat: {},
+    sepolia: {
+      url: process.env.SEPOLIA_RPC,
+      accounts: [process.env.PRIVATE_KEY]
+    }
+  }
+};
+{
+  "name": "zama-encrypted-staking",
+  "version": "1.0.0",
+  "description": "Zama-compatible encrypted staking dApp using Solidity and Hardhat",
+  "scripts": {
+    "test": "npx hardhat test",
+    "deploy:local": "npx hardhat run scripts/deploy.js --network hardhat",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "hardhat": "^3.0.0"
+  }
+}
