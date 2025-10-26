@@ -1,17 +1,4 @@
-# Zama-stak-1// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
-
-/**
- * @title EncryptedStaking
- * @notice Encrypted staking contract example for Zama integration.
- *         Stores encrypted data on-chain, with controlled decryption.
- */
-contract EncryptedStaking is AccessControl {
-    bytes32 public constant DECRYPTOR_ROLE = keccak256("DECRYPTOR_ROLE");
-
-    struct Stake {
         address owner;
         bytes encryptedAmount;
         bytes encryptedMetadata;
