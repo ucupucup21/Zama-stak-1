@@ -1,0 +1,31 @@
+require("dotenv").config();
+const { ethers } = require("hardhat");
+
+// Mock encryption for demo purpose
+function mockEncrypt(data) {
+  return "0x" + Buffer.from(data.toString()).toString("hex");
+}
+
+async function main() {
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying with:", deployer.address);
+
+  const EncryptedStaking = await ethers.getContractFactory("EncryptedStaking");
+  const staking = await EncryptedStaking.deploy(deployer.address);
+  await staking.deployed();
+
+  console.log("EncryptedStaking deployed at:", staking.address);
+
+  const encryptedAmount = mockEncrypt("1000000000000000000"); // 1 ETH
+  const encryptedMetadata = mockEncrypt(Date.now().toString());
+
+  const tx = await staking.submitStake(encryptedAmount, encryptedMetadata);
+  await tx.wait();
+
+  console.log("Stake submitted! Tx hash:", tx.hash);
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
